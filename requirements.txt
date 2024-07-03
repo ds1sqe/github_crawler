@@ -1,0 +1,4 @@
+setuptools
+wheel
+python-dotenv
+requests
