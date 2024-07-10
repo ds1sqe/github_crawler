@@ -2,3 +2,4 @@ setuptools
 wheel
 python-dotenv
 requests
+python-dateutil
