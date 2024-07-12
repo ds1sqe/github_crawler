@@ -163,7 +163,7 @@ impl Record {
 
         for event in timeline.iter() {
             if first_event_time_sec == -1 {
-                if let Some(event_time) = event["create_at"].as_str() {
+                if let Some(event_time) = event["created_at"].as_str() {
                     let first_event_time =
                         unsafe { DateTime::parse_from_rfc3339(event_time).unwrap_unchecked() };
                     first_event_time_sec = (first_event_time - create_time).num_seconds();
