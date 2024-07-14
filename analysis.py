@@ -1,20 +1,19 @@
-# Generate CSV from JSON files
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-import os, pathlib
-import json, csv
+def draw_lifetime_whole(df: pd.DataFrame,pl,name:str,color:str):
+    xi = list(range(len(df)))
+    pl.set_title(f"Life time of whole {name}")
+    pl.set_xlabel("Count")
+    pl.set_ylabel("Life Time (Day)")
+    pl.plot(xi,df['life_day'],color=color)
 
-BASE_DIR = pathlib.Path(os.path.abspath("")).resolve()
+import seaborn as sns
 
-def gen_csv():
-    with open(BASE_DIR / "results.jsonl") as f:
-        while line := f.readline():
-            data = json.loads(line)
-
-            repo = data.get("repository").get("full_name")
-            lifetime_day = data.get("lifetime")
-            worktime_day = data.get("worktime")
-            # TODO: Add more columns
-
-            with open(BASE_DIR / "analyze.csv", "a") as g:
-                writer = csv.writer(g)
-                writer.writerow([repo,lifetime_day, worktime_day])
+def draw_lifetime_distribution(df: pd.DataFrame):
+    sns.displot(df['life_day'],hist=True,
+                bins=(180/5),color = 'dark_blue',
+                hist_kws={'edgecolor':'black'},
+                kde_kws={'linewidth': 4},
+                )
